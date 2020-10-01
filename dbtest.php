@@ -1,11 +1,32 @@
 <?php
 
+    function options()
+    {
+        printf("%s\n\t-h DBHOST\n\t-u DBUSER\n\t-p DBPASSWORD\n\t-d DB",
+            basename(__FILE__)
+        );
+    }
+
+    // get the command line options
+
+    $options = getopt("h:u:p:d:");
+
+    if (FALSE == $options)
+    {
+        options();
+    }
+
+    if (!array_key_exists('h', $options) ||  !array_key_exists('u', $options) || !array_key_exists('p', $options) || !array_key_exists('d', $options))
+    {
+        options();
+    }
+
     // define the connection params
 
-    define("DBHOST", "");
-    define("DBUSER", "");
-    define("DBPASSWD", "");
-    define("DATABASE", "");
+    define("DBHOST", $options['h']);
+    define("DBUSER", $options['u']);
+    define("DBPASSWD", $options['p']);
+    define("DATABASE", $options['d']);
     define("ROWS", 1000);
 
     // check for mysqli extension
