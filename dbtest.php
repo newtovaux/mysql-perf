@@ -2,14 +2,14 @@
 
     function options()
     {
-        printf("%s\n\t-h DBHOST\n\t-u DBUSER\n\t-p DBPASSWORD\n\t-d DB\n\n",
+        printf("%s\n\t-h DBHOST\n\t-u DBUSER\n\t-p DBPASSWORD\n\t-d DB\n\t-r ROWS\n\n",
             basename(__FILE__)
         );
     }
 
     // get the command line options
 
-    $options = getopt("h:u:p:d:");
+    $options = getopt("h:u:p:d:r:");
 
     if (FALSE == $options)
     {
@@ -17,7 +17,7 @@
         exit();
     }
 
-    if (!array_key_exists('h', $options) ||  !array_key_exists('u', $options) || !array_key_exists('p', $options) || !array_key_exists('d', $options))
+    if (!array_key_exists('h', $options) ||  !array_key_exists('u', $options) || !array_key_exists('p', $options) || !array_key_exists('d', $options) || !array_key_exists('r', $options))
     {
         options();
         exit();
@@ -29,7 +29,7 @@
     define("DBUSER", $options['u']);
     define("DBPASSWD", $options['p']);
     define("DATABASE", $options['d']);
-    define("ROWS", 1000);
+    define("ROWS", intval($options['r']));
 
     // check for mysqli extension
     if (! extension_loaded('mysqli'))
@@ -65,7 +65,7 @@
         exit();
     }
 
-    // insert 100,000 rows
+    // insert rows
     for ($i = 1; $i <= ROWS; $i++) {
         $mysqli->query("INSERT INTO test(id) VALUES ($i)");
     }
