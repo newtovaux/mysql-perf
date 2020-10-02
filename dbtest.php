@@ -2,7 +2,7 @@
 
     function options()
     {
-        printf("%s\n\t-h DBHOST\n\t-u DBUSER\n\t-p DBPASSWORD\n\t-d DB",
+        printf("%s\n\t-h DBHOST\n\t-u DBUSER\n\t-p DBPASSWORD\n\t-d DB\n\n",
             basename(__FILE__)
         );
     }
