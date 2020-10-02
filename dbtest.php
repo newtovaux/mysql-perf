@@ -14,11 +14,13 @@
     if (FALSE == $options)
     {
         options();
+        exit();
     }
 
     if (!array_key_exists('h', $options) ||  !array_key_exists('u', $options) || !array_key_exists('p', $options) || !array_key_exists('d', $options))
     {
         options();
+        exit();
     }
 
     // define the connection params
@@ -33,7 +35,7 @@
     if (! extension_loaded('mysqli'))
     {
         echo "mysqli extension not available.";
-        die();
+        exit();
     }
 
     // record start time
@@ -44,7 +46,7 @@
 
     if ($mysqli->connect_errno) {
         echo "Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
-        die();
+        exit();
     }
 
     echo $mysqli->host_info . "\n";
@@ -53,12 +55,14 @@
     if (! $mysqli->query("DROP TABLE IF EXISTS test"))
     {
         echo "Table deletion failed: (" . $mysqli->errno . ") " . $mysqli->error;
+        exit();
     }
 
     // create a table
     if (! $mysqli->query("CREATE TABLE test(id INT)"))
     {
         echo "Table creation failed: (" . $mysqli->errno . ") " . $mysqli->error;
+        exit();
     }
 
     // insert 100,000 rows
